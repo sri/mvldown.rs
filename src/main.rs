@@ -12,8 +12,8 @@ fn main() {
             std::process::exit(1);
         }
     };
-    let downloads_dir = Path::new(&homedir).join("Downloads");
 
+    let downloads_dir = Path::new(&homedir).join("Downloads");
     if !downloads_dir.exists() {
         eprintln!("downloads directory doesn't exist: {}", downloads_dir.display());
         std::process::exit(1);
@@ -40,13 +40,14 @@ fn main() {
         }
     }
 
-    dir_entries.sort_by_key(|entry| entry.metadata().unwrap().modified().unwrap());
-    dir_entries.reverse();
-
     if dir_entries.is_empty() {
         eprintln!("nothing in downloads");
         std::process::exit(1);
     }
+
+    dir_entries.sort_by_key(|entry| entry.metadata().unwrap().modified().unwrap());
+    dir_entries.reverse();
+
 
     let most_recent = &dir_entries[0];
 
